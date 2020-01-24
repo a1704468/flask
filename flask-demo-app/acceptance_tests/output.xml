@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot rpa="false" generated="20200120 17:45:22.353" generator="Robot 3.1.2 (Python 2.7.15 on darwin)">
+<suite source="/Users/pavel/Desktop/docker_course/projekti/flask-demo-app/acceptance_tests/api.robot" id="s1" name="Api">
+<kw type="setup" name="Get Movie And Open Browser">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>${FINNKINO_SCHEDULE}</arg>
+<arg>http://www.finnkino.fi/xml/Schedule/</arg>
+</arguments>
+<msg timestamp="20200120 17:45:22.512" level="INFO">Creating Session using : alias=finnkino, url=http://www.finnkino.fi/xml/Schedule/, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" endtime="20200120 17:45:22.512" starttime="20200120 17:45:22.511"></status>
+</kw>
+<kw name="Get Request" library="RequestsLibrary">
+<doc>Send a GET request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>${FINNKINO_SCHEDULE}</arg>
+<arg>/?area=1041</arg>
+</arguments>
+<assign>
+<var>${resp}</var>
+</assign>
+<msg timestamp="20200120 17:45:22.512" level="INFO">GET Request using : uri=/?area=1041, params=None, timeout=None, allow_redirects=True
+headers={'Connection': 'keep-alive', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'User-Agent': 'python-requests/2.22.0'} 
+data=None 
+json=None</msg>
+<msg timestamp="20200120 17:45:23.260" level="INFO">/usr/local/lib/python2.7/site-packages/urllib3/connectionpool.py:1004: InsecureRequestWarning: Unverified HTTPS request is being made. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  InsecureRequestWarning,</msg>
+<msg timestamp="20200120 17:45:23.261" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<status status="PASS" endtime="20200120 17:45:23.261" starttime="20200120 17:45:22.512"></status>
+</kw>
+<kw name="Get Movie Title" library="XMLParserLib">
+<arguments>
+<arg>${resp.content}</arg>
+</arguments>
+<assign>
+<var>${movie_title}</var>
+</assign>
+<msg timestamp="20200120 17:45:23.271" level="INFO">${movie_title} = Jojo Rabbit</msg>
+<status status="PASS" endtime="20200120 17:45:23.271" starttime="20200120 17:45:23.261"></status>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<arguments>
+<arg>${MOVIE_TITLE}</arg>
+<arg>${movie_title}</arg>
+</arguments>
+<msg timestamp="20200120 17:45:23.272" level="INFO">${MOVIE_TITLE} = Jojo Rabbit</msg>
+<status status="PASS" endtime="20200120 17:45:23.272" starttime="20200120 17:45:23.271"></status>
+</kw>
+<kw name="Open Browser" library="SeleniumLibrary">
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<arguments>
+<arg>${SERVER}</arg>
+<arg>${BROWSER}</arg>
+</arguments>
+<msg timestamp="20200120 17:45:23.272" level="INFO">Opening browser 'firefox' to base url 'http://localhost:5000'.</msg>
+<msg timestamp="20200120 17:45:23.274" level="INFO">Firefox driver log is always forced to to: /Users/pavel/Desktop/docker_course/projekti/flask-demo-app/acceptance_tests/geckodriver-3.log</msg>
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<msg timestamp="20200120 17:45:23.298" level="INFO">Cannot capture screenshot because no browser is open.</msg>
+<status status="PASS" endtime="20200120 17:45:23.298" starttime="20200120 17:45:23.297"></status>
+</kw>
+<msg timestamp="20200120 17:45:23.300" level="FAIL">WebDriverException: Message: 'geckodriver' executable needs to be in PATH. 
+</msg>
+<status status="FAIL" endtime="20200120 17:45:23.300" starttime="20200120 17:45:23.272"></status>
+</kw>
+<status status="FAIL" endtime="20200120 17:45:23.300" starttime="20200120 17:45:22.511"></status>
+</kw>
+<test id="s1-t1" name="Check That Movie Is Found From Correct Area">
+<status status="FAIL" endtime="20200120 17:45:23.301" critical="yes" starttime="20200120 17:45:23.300">Parent suite setup failed:
+WebDriverException: Message: 'geckodriver' executable needs to be in PATH. 
+</status>
+</test>
+<kw type="teardown" name="Close Browser" library="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" endtime="20200120 17:45:23.302" starttime="20200120 17:45:23.302"></status>
+</kw>
+<status status="FAIL" endtime="20200120 17:45:23.302" starttime="20200120 17:45:22.354">Suite setup failed:
+WebDriverException: Message: 'geckodriver' executable needs to be in PATH. 
+</status>
+</suite>
+<statistics>
+<total>
+<stat fail="1" pass="0">Critical Tests</stat>
+<stat fail="1" pass="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat fail="1" id="s1" name="Api" pass="0">Api</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
